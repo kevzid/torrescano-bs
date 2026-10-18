@@ -210,13 +210,6 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
-  padding: 3.5rem 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-  border-right: 1px solid var(--gold-border);
-}
 
 .hero-backdrop-glow {
   position: absolute;

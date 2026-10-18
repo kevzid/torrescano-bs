@@ -46,15 +46,18 @@ async function checkAuth() {
 
     if (!session) {
       window.location.href = 'index.html';
-      return;
+      return false;
     }
 
     const user = session.user;
     const displayName = user.user_metadata?.name || user.email || 'Usuario';
     const userNameEl = document.getElementById('user-name');
     if (userNameEl) userNameEl.textContent = displayName;
+    return true;
   } catch (error) {
     console.error('Error en checkAuth:', error);
+    window.location.href = 'index.html';
+    return false;
   }
 }
 
@@ -482,14 +485,20 @@ function updateTableDate() {
 updateTableDate();
 
 
+// ── Exponer funciones al scope global para eventos inline ──
+window.openEditModal = openEditModal;
+window.openDeleteModal = openDeleteModal;
+
 // ============================================================
 // INICIALIZACIÓN
 // ============================================================
 async function initDashboard() {
-  // Carga inmediata de la lista de usuarios
-  loadUsers();
-  // Validación de sesión
-  await checkAuth();
+  // 1. Validación de sesión
+  const isAuth = await checkAuth();
+  // 2. Cargar datos sólo si la sesión es válida
+  if (isAuth) {
+    await loadUsers();
+  }
 }
 
 // Ejecutar inmediatamente o cuando el DOM esté listo
@@ -498,4 +507,5 @@ if (document.readyState === 'loading') {
 } else {
   initDashboard();
 }
+
 

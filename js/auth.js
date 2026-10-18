@@ -190,8 +190,13 @@ async function handleRegister(e) {
       if (dbError) console.error("Error guardando perfil en tabla:", dbError);
     }
 
-    showToast('¡Cuenta creada exitosamente!', 'success');
-    setTimeout(() => window.location.href = 'dashboard.html', 800);
+    if (data.session) {
+      showToast('¡Cuenta creada exitosamente!', 'success');
+      setTimeout(() => window.location.href = 'dashboard.html', 800);
+    } else {
+      showToast('¡Cuenta creada! Revisa tu correo para confirmar tu registro antes de iniciar sesión.', 'success');
+      switchToLogin();
+    }
   } catch (error) {
     console.error('Register error:', error);
     showToast(translateError(error.message));
@@ -215,8 +220,9 @@ async function handlePasswordRecovery() {
   showLoader(btn);
 
   try {
+    const redirectUrl = new URL('reset-password.html', window.location.href).href;
     const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + '/reset-password.html',
+      redirectTo: redirectUrl,
     });
 
     if (error) throw error;
@@ -360,4 +366,13 @@ document.addEventListener('DOMContentLoaded', () => {
       closeRecoveryModal();
     }
   });
+
+  // Redirigir al dashboard si ya hay sesión iniciada
+  if (typeof supabaseClient !== 'undefined' && supabaseClient.auth) {
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        window.location.href = 'dashboard.html';
+      }
+    }).catch(err => console.warn('Sesión no encontrada o error al validar:', err));
+  }
 });
