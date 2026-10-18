@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Torrescano BS — Panel de administración corporativo. Gestión de usuarios: altas, bajas y cambios.">
+  
+  <!-- Anti-Caché -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <title>Torrescano BS — Panel de Administración</title>
+  <!-- Cache buster v3.1 Enterprise Dark Edition -->
+  <link rel="stylesheet" href="css/styles.css?v=3.1">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+</head>
+<body>
+
+  <div class="dashboard-page">
+
+    <!-- ══════════════════════════════════════════
+         NAVBAR CORPORATIVO
+         ══════════════════════════════════════════ -->
+    <nav class="navbar">
+      <div class="nav-brand">
+        <div class="nav-logo">TB</div>
+        <div>
+          <span class="nav-title">Torrescano BS</span>
+          <span style="display:block; font-family:var(--font-mono); font-size:0.68rem; color:var(--gold-primary); letter-spacing:0.08em;">ENTERPRISE SUITE</span>
+        </div>
+      </div>
+      <div class="nav-user">
+        <span class="user-greeting">Hola, <strong id="user-name">Usuario</strong></span>
+        <button class="btn-logout" id="btn-logout">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Cerrar Sesión
+        </button>
+      </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+         CONTENIDO PRINCIPAL
+         ══════════════════════════════════════════ -->
+    <div class="dashboard-content">
+
+      <!-- ── Tarjetas de estadísticas ── -->
+      <div class="stats-grid">
+        <div class="stat-card blue">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Total Usuarios</span>
+            <div class="stat-card-icon">👥</div>
+          </div>
+          <div class="stat-card-value" id="stat-total">0</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Administradores</span>
+            <div class="stat-card-icon">🛡️</div>
+          </div>
+          <div class="stat-card-value" id="stat-admins">0</div>
+        </div>
+        <div class="stat-card orange">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Usuarios</span>
+            <div class="stat-card-icon">👤</div>
+          </div>
+          <div class="stat-card-value" id="stat-users">0</div>
+        </div>
+        <div class="stat-card cyan">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Editores</span>
+            <div class="stat-card-icon">✏️</div>
+          </div>
+          <div class="stat-card-value" id="stat-editors">0</div>
+        </div>
+      </div>
+
+      <!-- ── Encabezado de sección ── -->
+      <div class="section-header">
+        <h2 class="section-title">Gestión de Usuarios</h2>
+        <div class="section-actions">
+          <div class="search-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" class="search-input" id="search-users" placeholder="Buscar por nombre o email…">
+          </div>
+          <button class="btn-primary" id="btn-add-user" style="width:auto; padding:10px 22px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Nueva Alta
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Tabla de usuarios ── -->
+      <div class="table-container">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th>Nombre</th>
+              <th>Correo electrónico</th>
+              <th>Rol</th>
+              <th style="text-align:center; width: 120px;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="users-body">
+            <!-- Se llena dinámicamente desde Supabase -->
+          </tbody>
+        </table>
+
+        <!-- Estado vacío -->
+        <div class="empty-state hidden" id="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <div class="empty-state-text">No hay usuarios registrados</div>
+          <div class="empty-state-sub">Haz clic en "Nueva Alta" para agregar el primero</div>
+        </div>
+
+        <div class="table-footer" style="display:flex; justify-content:space-between; align-items:center;">
+          <span id="table-count">Mostrando 0 registros</span>
+          <span style="color:var(--gold-primary); font-size:0.75rem;">⚡ CONECTADO A SUPABASE</span>
+        </div>
+      </div>
+
+    </div><!-- .dashboard-content -->
+  </div><!-- .dashboard-page -->
+
+
+  <!-- ══════════════════════════════════════════
+       MODAL: ALTA / CAMBIO DE USUARIO
+       ══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-user">
+    <div class="modal">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>👤</span>
+          <h3 class="modal-title" id="modal-user-title">Nueva Alta</h3>
+        </div>
+        <button class="modal-close" id="modal-user-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-user" novalidate>
+          <!-- ID oculto para edición -->
+          <input type="hidden" id="user-id">
+
+          <div class="form-group">
+            <label class="form-label" for="user-nombre">Nombre completo</label>
+            <input type="text" id="user-nombre" class="form-input" placeholder="Ej: Juan Pérez" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="user-email">Correo corporativo</label>
+            <input type="email" id="user-email" class="form-input" placeholder="Ej: juan@empresa.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="user-rol">Rol en el sistema</label>
+            <select id="user-rol" class="form-select" required>
+              <option value="">Selecciona un rol</option>
+              <option value="admin">Administrador</option>
+              <option value="editor">Editor</option>
+              <option value="usuario">Usuario</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btn-cancel-user">Cancelar</button>
+        <button class="btn-success" id="btn-save-user">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       MODAL: CONFIRMAR BAJA
+       ══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-delete">
+    <div class="modal" style="max-width:440px;">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>⚠️</span>
+          <h3 class="modal-title" style="color:#f87171;">Confirmar Baja</h3>
+        </div>
+        <button class="modal-close" id="modal-delete-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="delete-warning">
+          <span class="delete-warning-icon">⚠️</span>
+          <div class="delete-warning-text">
+            ¿Estás seguro de que deseas dar de <strong>baja</strong> a este usuario?
+            <br><br>
+            <strong id="delete-user-name" style="color:#ffffff; font-size:0.95rem;"></strong>
+            <br><br>
+            Esta acción eliminará el registro de la base de datos Supabase de forma permanente.
+          </div>
+        </div>
+        <input type="hidden" id="delete-user-id">
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btn-cancel-delete">Cancelar</button>
+        <button class="btn-danger" id="btn-confirm-delete">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+          Dar de Baja
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       SCRIPTS
+       ══════════════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js?v=3.5"></script>
+  <script src="js/dashboard.js?v=3.5"></script>
+
+</body>
+</html>

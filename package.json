@@ -1,0 +1,12 @@
+{
+  "name": "torrescano-bs",
+  "version": "1.0.0",
+  "description": "Torrescano BS static web app",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

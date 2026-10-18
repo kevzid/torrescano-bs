@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Torrescano BS — Plataforma empresarial de gestión y control de usuarios ABC.">
+  
+  <!-- Anti-Caché -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <title>Torrescano BS — Iniciar Sesión</title>
+  <!-- Cache buster v3.3 Centered Login Edition -->
+  <link rel="stylesheet" href="css/styles.css?v=3.3">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+</head>
+<body class="auth-body">
+
+  <!-- ══════════════════════════════════════════
+       PÁGINA DE AUTENTICACIÓN CENTRADA
+       DISEÑO CORPORATIVO ENTERPRISE DARK
+       ══════════════════════════════════════════ -->
+  <main class="auth-layout-centered">
+    
+    <!-- Resplandor de fondo -->
+    <div class="auth-bg-glow"></div>
+
+    <div class="auth-card-enterprise">
+      
+      <!-- Brand Header Centrado -->
+      <div class="auth-brand-centered">
+        <div class="hero-logo-box">
+          <span class="hero-logo-icon">🏢</span>
+        </div>
+        <h1 class="auth-brand-title">Torrescano BS</h1>
+        <span class="auth-brand-subtitle">Enterprise Management Suite</span>
+      </div>
+
+      <!-- Toggle Switch: Iniciar Sesión / Registrarse -->
+      <div class="auth-card-top">
+        <div class="auth-tab-switch">
+          <button type="button" class="tab-btn active" id="tab-login" data-switch="login">Iniciar Sesión</button>
+          <button type="button" class="tab-btn" id="tab-register" data-switch="register">Registrarse</button>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════
+           FORMULARIO: LOGIN
+           ══════════════════════════════════════════ -->
+      <div id="login-form-container">
+        <div class="form-intro">
+          <h2 class="form-title">Bienvenido</h2>
+          <p class="form-subtitle">Ingresa tus credenciales para acceder al sistema</p>
+        </div>
+
+        <form id="login-form" novalidate>
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="login-email">Correo corporativo</label>
+            <div class="input-wrapper">
+              <input
+                type="email"
+                id="login-email"
+                class="form-input"
+                placeholder="usuario@empresa.com"
+                autocomplete="email"
+                required
+              >
+              <svg width="17" height="17" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <span class="input-error"></span>
+            </div>
+          </div>
+
+          <!-- Contraseña -->
+          <div class="form-group">
+            <label class="form-label" for="login-password">Contraseña</label>
+            <div class="input-wrapper">
+              <input
+                type="password"
+                id="login-password"
+                class="form-input"
+                placeholder="••••••••"
+                autocomplete="current-password"
+                required
+              >
+              <svg width="17" height="17" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <button type="button" class="password-toggle" data-target="login-password" aria-label="Mostrar contraseña">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+              <span class="input-error"></span>
+            </div>
+          </div>
+
+          <!-- Recordar y Recuperar -->
+          <div class="form-options">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" id="remember-me">
+              <span class="checkbox-label">Recordarme</span>
+            </label>
+            <a href="#" class="forgot-link" id="btn-forgot-password">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <!-- Botón Submit -->
+          <button type="submit" class="btn-primary btn-block btn-lg" id="btn-login-submit">
+            <span>Ingresar al Panel</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+
+        <p class="form-switch-prompt">
+          ¿Aún no tienes cuenta registrada?
+          <a href="#" data-switch="register">Crear cuenta</a>
+        </p>
+      </div>
+
+      <!-- ══════════════════════════════════════════
+           FORMULARIO: REGISTRO
+           ══════════════════════════════════════════ -->
+      <div id="register-form-container" class="hidden">
+        <div class="form-intro">
+          <h2 class="form-title">Crear Cuenta</h2>
+          <p class="form-subtitle">Registra tu perfil en el sistema Torrescano BS</p>
+        </div>
+
+        <form id="register-form" novalidate>
+          <!-- Nombre -->
+          <div class="form-group">
+            <label class="form-label" for="register-name">Nombre completo</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="register-name"
+                class="form-input"
+                placeholder="Ej. Juan Pérez"
+                autocomplete="name"
+                required
+              >
+              <svg width="17" height="17" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span class="input-error"></span>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="register-email">Correo corporativo</label>
+            <div class="input-wrapper">
+              <input
+                type="email"
+                id="register-email"
+                class="form-input"
+                placeholder="usuario@empresa.com"
+                autocomplete="email"
+                required
+              >
+              <svg width="17" height="17" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <span class="input-error"></span>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="register-password">Contraseña</label>
+            <div class="input-wrapper">
+              <input
+                type="password"
+                id="register-password"
+                class="form-input"
+                placeholder="Mínimo 6 caracteres"
+                autocomplete="new-password"
+                required
+              >
+              <svg width="17" height="17" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <button type="button" class="password-toggle" data-target="register-password" aria-label="Mostrar contraseña">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+              <span class="input-error"></span>
+            </div>
+          </div>
+
+          <!-- Confirmar password -->
+          <div class="form-group">
+            <label class="form-label" for="register-confirm">Confirmar contraseña</label>
+            <div class="input-wrapper">
+              <input
+                type="password"
+                id="register-confirm"
+                class="form-input"
+                placeholder="Repite la contraseña"
+                autocomplete="new-password"
+                required
+              >
+              <svg width="17" height="17" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <button type="button" class="password-toggle" data-target="register-confirm" aria-label="Mostrar contraseña">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+              <span class="input-error"></span>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn-primary btn-block btn-lg" style="margin-top: 1rem;">
+            <span>Crear Cuenta</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+
+        <p class="form-switch-prompt">
+          ¿Ya tienes una cuenta registrada?
+          <a href="#" data-switch="login">Iniciar sesión</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- ══════════════════════════════════════════
+       MODAL: RECUPERAR CONTRASEÑA
+       ══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-recovery">
+    <div class="modal" style="max-width:460px;">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.2rem;">🔑</span>
+          <h3 class="modal-title">Recuperar Contraseña</h3>
+        </div>
+        <button class="modal-close" id="modal-recovery-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="recovery-info">
+          <span class="recovery-info-icon">📧</span>
+          <span class="recovery-info-text">
+            Ingresa tu correo institucional registrado y te enviaremos un enlace seguro para restablecer tu contraseña.
+          </span>
+        </div>
+        <form id="recovery-form" novalidate>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label" for="recovery-email">Correo registrado</label>
+            <div class="input-wrapper">
+              <input
+                type="email"
+                id="recovery-email"
+                class="form-input"
+                placeholder="usuario@empresa.com"
+                autocomplete="email"
+                required
+              >
+              <svg width="17" height="17" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btn-cancel-recovery">Cancelar</button>
+        <button class="btn-primary" id="btn-send-recovery" style="width:auto; padding:10px 22px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+          Enviar Enlace
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- App Scripts con Cache Buster -->
+  <script src="js/supabase-config.js?v=3.3"></script>
+  <script src="js/auth.js?v=3.3"></script>
+</body>
+</html>
